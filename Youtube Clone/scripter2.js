@@ -8,7 +8,7 @@ function iframemaker(){
 }
 async function getdataforeach(){
     let finaldata=[]
-    let temp= await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${vidid}&key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ`)
+    let temp= await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${vidid}&key=AIzaSyDY4CdQ2_BI6x_KHZkAvEZKSF9372t6pdE`)
     let rest= await temp.json()
     finaldata=rest.items
     console.log(finaldata)
@@ -17,7 +17,7 @@ async function getdataforeach(){
 async function getchanneldata(result){
     const t= result[0].snippet.channelId
     let indidata=[]
-    const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet,statistics&id=${t}`
+    const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyDY4CdQ2_BI6x_KHZkAvEZKSF9372t6pdE&part=snippet,statistics&id=${t}`
         let temp = await fetch(base)
         let tempres= await temp.json()
         indidata.push(tempres.items[0])
@@ -27,8 +27,56 @@ async function getchanneldata(result){
 function renderData(result,indidata){
 const titleref= document.getElementsByClassName("title")[0]
 titleref.innerText=result[0].snippet.title
+const curdate= new Date()
+let customdate= new Date(Number(result[0].snippet.publishedAt.substring(0,4)),Number(result[0].snippet.publishedAt.substring(5,7))-1,Number(result[0].snippet.publishedAt.substring(8,10)),Number(result[0].snippet.publishedAt.substring(11,13))+5,Number(result[0].snippet.publishedAt.substring(14,16))+30,Number(result[0].snippet.publishedAt.substring(17,19)))
+        let diff=(curdate.getTime()-customdate.getTime())/1000
+        if(diff<60){
+            customdate=`${diff.toFixed(0)}} seconds ago`
+        }
+        else if(diff<3600){
+            if((diff/60).toFixed(0)<=1){
+                customdate=`${(diff/60).toFixed(0)} minute ago`
+            }
+            else{
+            customdate=`${(diff/60).toFixed(0)} minutes ago`}
+        }
+        else if(diff<86400){
+            if((diff/3600).toFixed(0)<=1){
+                customdate=`${(diff/3600).toFixed(0)} hour ago`
+            }
+            else{
+            customdate=`${(diff/3600).toFixed(0)} hours ago`}
+        }
+        else if(diff<604800){
+            if((diff/86400).toFixed(0)<=1){
+                customdate=`${(diff/86400).toFixed(0)} day ago`
+            }
+            else{
+            customdate=`${(diff/86400).toFixed(0)} days ago`}
+        }
+        else if(diff<2419200){
+            if((diff/604800).toFixed(0)<=1){
+                customdate=`${(diff/604800).toFixed(0)} week ago`
+            }
+            else{
+            customdate=`${(diff/604800).toFixed(0)} weeks ago`}
+        }
+        else if(diff<29030400){
+            if((diff/2419200).toFixed(0)<=1){
+                customdate=`${(diff/2419200).toFixed(0)} month ago`
+            }
+            else{
+            customdate=`${(diff/2419200).toFixed(0)} months ago`}
+        }
+        else{
+            if((diff/29030400).toFixed(0)<=1){
+                customdate=`${(diff/29030400).toFixed(0)} year ago`
+            }
+            else{
+            customdate=`${(diff/29030400).toFixed(0)} years ago`
+        } }
 const viewsref=document.getElementsByClassName("views")[0]
-viewsref.innerText=result[0].statistics.viewCount+" views"
+viewsref.innerText=`${result[0].statistics.viewCount} views • ${customdate}`
 const likeref=document.getElementsByClassName("like")[0]
 let templike=result[0].statistics.likeCount
 let likestr=''
@@ -68,7 +116,7 @@ getComments()
 }
 async function getComments(){
     letfinaldata=[]
-let url = `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&videoId=${vidid}&maxResults=80&order=relevance`
+let url = `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyDY4CdQ2_BI6x_KHZkAvEZKSF9372t6pdE&part=snippet&videoId=${vidid}&maxResults=80&order=relevance`
 let temp = await fetch(url)
 let res = await temp.json()
 finaldata=res.items
@@ -177,7 +225,7 @@ function rendercomments(result){
 }
 async function getreplieslist(commentId,count){
     let finaldata=[]
-    const url=`https://www.googleapis.com/youtube/v3/comments?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&parentId=${commentId}&maxResults=10`
+    const url=`https://www.googleapis.com/youtube/v3/comments?key=AIzaSyDY4CdQ2_BI6x_KHZkAvEZKSF9372t6pdE&part=snippet&parentId=${commentId}&maxResults=10`
     let temp =await fetch(url)
     let res= await temp.json()
     finaldata=res.items
