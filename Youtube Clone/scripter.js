@@ -1,6 +1,6 @@
 
 async function getvideo(search){
-    const baseurl=`https://www.googleapis.com/youtube/v3/search?key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU&part=snippet&q=${search}&type=video&maxResults=20`
+    const baseurl=`https://www.googleapis.com/youtube/v3/search?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&q=${search}&type=video&maxResults=20`
     const temp = await fetch(baseurl)
     const result = await temp.json()
     getdeatils(result.items)
@@ -10,7 +10,7 @@ async function getdeatils(result){
     let indidata=[]
     for(let i=0;i<result.length;i++){
         const ide = result[i].id.videoId
-        const baseurl=`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${ide}&key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU`
+        const baseurl=`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${ide}&key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ`
         let temp = await fetch(baseurl)
         let tempres= await temp.json()
         videodetails.push(tempres.items[0])
@@ -22,7 +22,7 @@ async function individualdata(result){
     let indidata=[]
     for(let i=0;i<result.length;i++){
         let id=result[i].snippet.channelId
-        const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU&part=snippet&id=${id}`
+        const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&id=${id}`
         let temp = await fetch(base)
         let tempres= await temp.json()
         indidata.push(tempres.items[0])
