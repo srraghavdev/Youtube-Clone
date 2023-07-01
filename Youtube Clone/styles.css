@@ -76,6 +76,8 @@ input:focus{
     row-gap: 168px;
     padding-top: 10px;
     column-gap: 3.5%;
+	justify-content: space-evenly;
+    padding-right: 20px;
 }
 .b1{
 display: flex;
