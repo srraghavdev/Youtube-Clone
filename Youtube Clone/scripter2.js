@@ -8,7 +8,7 @@ function iframemaker(){
 }
 async function getdataforeach(){
     let finaldata=[]
-    let temp= await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${vidid}&key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU`)
+    let temp= await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${vidid}&key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ`)
     let rest= await temp.json()
     finaldata=rest.items
     console.log(finaldata)
@@ -17,7 +17,7 @@ async function getdataforeach(){
 async function getchanneldata(result){
     const t= result[0].snippet.channelId
     let indidata=[]
-    const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU&part=snippet,statistics&id=${t}`
+    const base=`https://www.googleapis.com/youtube/v3/channels?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet,statistics&id=${t}`
         let temp = await fetch(base)
         let tempres= await temp.json()
         indidata.push(tempres.items[0])
@@ -68,7 +68,7 @@ getComments()
 }
 async function getComments(){
     letfinaldata=[]
-let url = `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU&part=snippet&videoId=${vidid}&maxResults=80&order=relevance`
+let url = `https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&videoId=${vidid}&maxResults=80&order=relevance`
 let temp = await fetch(url)
 let res = await temp.json()
 finaldata=res.items
@@ -177,7 +177,7 @@ function rendercomments(result){
 }
 async function getreplieslist(commentId,count){
     let finaldata=[]
-    const url=`https://www.googleapis.com/youtube/v3/comments?key=AIzaSyA-zzTpKPIxmpXfihLHOXLN0OLlwBs96EU&part=snippet&parentId=${commentId}&maxResults=10`
+    const url=`https://www.googleapis.com/youtube/v3/comments?key=AIzaSyAp7QOglwmm6Y6_dt-QQiGWPn0RHmBjbwQ&part=snippet&parentId=${commentId}&maxResults=10`
     let temp =await fetch(url)
     let res= await temp.json()
     finaldata=res.items
